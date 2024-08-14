@@ -60,4 +60,12 @@
     color: red;
     cursor: pointer;
   }
+
+  & .edit-product-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: orange;
+    cursor: pointer;
+  }
 }

@@ -1,8 +1,9 @@
 import React from "react";
 
-import { removeProduct } from "./store/actions";
+import { removeProduct, editProduct } from "./store/actions";
 
 import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,29 +17,46 @@ export default function ProductList() {
     }
   };
 
+  const editProductHandler = (id) => {
+    const newProductName = window.prompt("Entert new name");
+    const newProductQuantity = window.prompt("Enter new quantity");
+
+    dispatch(
+      editProduct({
+        id: id,
+        productName: newProductName,
+        productQuantity: newProductQuantity,
+      })
+    );
+  };
+
   return (
     <div>
-      <div>
-        {products.length === 0 ? (
-          <div>No products in list</div>
-        ) : (
-          <div>
-            {products.map((product) => (
-              <div className="product-list-wrapper" key={product.id}>
-                <div>
-                  {product.productName} - {product.productQuantity}
-                </div>
-                <button
-                  className="delete-product-btn"
-                  onClick={() => deleteProductHandler(product.id)}
-                >
-                  <MdDelete />
-                </button>
+      {products.length === 0 ? (
+        <div>No products in list</div>
+      ) : (
+        <div>
+          {products.map(({ id, name, quantity }) => (
+            <div className="product-list-wrapper" key={id}>
+              <div>
+                {name} - {quantity}
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+              <button
+                className="delete-product-btn"
+                onClick={() => deleteProductHandler(id)}
+              >
+                <MdDelete />
+              </button>
+              <button
+                className="edit-product-btn"
+                onClick={() => editProductHandler(id)}
+              >
+                <FaEdit />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

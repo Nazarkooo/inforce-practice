@@ -11,3 +11,8 @@ export const removeProduct = (id) => ({
   type: REMOVE_PRODUCT,
   payload: id,
 });
+
+export const editProduct = (data) => ({
+  type: EDIT_PRODUCT,
+  payload: data,
+});
